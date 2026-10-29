@@ -1,0 +1,9 @@
+# Pinned versions verified in the RC environment (Python 3.12.3).
+# v0.1 used >= ranges; RC pins exact versions for reproducibility (issue 10).
+fastapi==0.162.0
+uvicorn==0.54.0
+pydantic==2.14.1
+PyMuPDF==2.0
+python-multipart==0.0.32
+pytest==9.2.0
+httpx==0.28.1

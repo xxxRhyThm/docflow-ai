@@ -1,0 +1,147 @@
+DocFlow AI RC3 test log
+Python:
+Python 3.12.3
+
+pip freeze (full):
+annotated-doc==0.0.5
+annotated-types==0.8.0
+anyio==4.15.1
+certifi==2026.10.23
+click==8.5.0
+fastapi==0.162.0
+flatbuffers==25.12.19
+h11==0.16.0
+httpcore==1.0.9
+httpx==0.28.1
+idna==3.20
+iniconfig==2.3.1
+networkx==3.7
+numpy==2.5.4
+onnxruntime==1.31.1
+opentelemetry-api==1.45.1
+packaging==26.3
+pluggy==1.7.0
+protobuf==7.36.2
+psutil==7.2.2
+pydantic==2.14.1
+pydantic_core==2.50.1
+Pygments==2.21.0
+pymupdf==2.0
+pymupdf4llm==2.0
+pymupdf_layout==2.0
+pytest==9.2.0
+python-multipart==0.0.32
+PyYAML==6.0.3
+starlette==1.10.0
+tabulate==0.10.0
+typing-inspection==0.4.4
+typing_extensions==4.16.0
+uvicorn==0.54.0
+
+pytest -v output:
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.2.0, pluggy-1.7.0 -- 虚拟环境中的 Python
+cachedir: .pytest_cache
+rootdir: 本地 RC3 工作目录
+plugins: anyio-4.15.1
+collecting ... collected 91 items
+
+tests/test_api.py::test_health PASSED                                    [  1%]
+tests/test_api.py::test_upload_extract_and_review_flow PASSED            [  2%]
+tests/test_api.py::test_upload_rejects_non_pdf PASSED                    [  3%]
+tests/test_api.py::test_upload_rejects_fake_pdf_header PASSED            [  4%]
+tests/test_api.py::test_export_only_confirmed PASSED                     [  5%]
+tests/test_api.py::test_llm_status_is_honest PASSED                      [  6%]
+tests/test_docflow_independent_regressions.py::test_special_float_must_not_confirm_or_export[NaN] PASSED [  7%]
+tests/test_docflow_independent_regressions.py::test_special_float_must_not_confirm_or_export[Infinity] PASSED [  8%]
+tests/test_docflow_independent_regressions.py::test_whitespace_vendor_must_block_confirmation PASSED [  9%]
+tests/test_docflow_independent_regressions.py::test_blank_vendor_not_filled_from_next_line PASSED [ 10%]
+tests/test_docflow_independent_regressions.py::test_noncanonical_date_rejected PASSED [ 12%]
+tests/test_extraction.py::test_extract_all_fields PASSED                 [ 13%]
+tests/test_extraction.py::test_extract_missing_fields_are_none_not_fabricated PASSED [ 14%]
+tests/test_extraction.py::test_extract_empty_text_warns PASSED           [ 15%]
+tests/test_rc2_audit_boundaries.py::test_nonfinite_rejected_and_existing_state_preserved[False-NaN] PASSED [ 16%]
+tests/test_rc2_audit_boundaries.py::test_nonfinite_rejected_and_existing_state_preserved[False-Infinity] PASSED [ 17%]
+tests/test_rc2_audit_boundaries.py::test_nonfinite_rejected_and_existing_state_preserved[False--Infinity] PASSED [ 18%]
+tests/test_rc2_audit_boundaries.py::test_nonfinite_rejected_and_existing_state_preserved[False-"NaN"] PASSED [ 19%]
+tests/test_rc2_audit_boundaries.py::test_nonfinite_rejected_and_existing_state_preserved[False-"Infinity"] PASSED [ 20%]
+tests/test_rc2_audit_boundaries.py::test_nonfinite_rejected_and_existing_state_preserved[False-1e309] PASSED [ 21%]
+tests/test_rc2_audit_boundaries.py::test_nonfinite_rejected_and_existing_state_preserved[False-"1e309"] PASSED [ 23%]
+tests/test_rc2_audit_boundaries.py::test_nonfinite_rejected_and_existing_state_preserved[True-NaN] PASSED [ 24%]
+tests/test_rc2_audit_boundaries.py::test_nonfinite_rejected_and_existing_state_preserved[True-Infinity] PASSED [ 25%]
+tests/test_rc2_audit_boundaries.py::test_nonfinite_rejected_and_existing_state_preserved[True--Infinity] PASSED [ 26%]
+tests/test_rc2_audit_boundaries.py::test_nonfinite_rejected_and_existing_state_preserved[True-"NaN"] PASSED [ 27%]
+tests/test_rc2_audit_boundaries.py::test_nonfinite_rejected_and_existing_state_preserved[True-"Infinity"] PASSED [ 28%]
+tests/test_rc2_audit_boundaries.py::test_nonfinite_rejected_and_existing_state_preserved[True-1e309] PASSED [ 29%]
+tests/test_rc2_audit_boundaries.py::test_nonfinite_rejected_and_existing_state_preserved[True-"1e309"] PASSED [ 30%]
+tests/test_rc2_audit_boundaries.py::test_blank_fields_rejected_without_write[ \t\r\n -invoice_number] PASSED [ 31%]
+tests/test_rc2_audit_boundaries.py::test_blank_fields_rejected_without_write[ \t\r\n -vendor] PASSED [ 32%]
+tests/test_rc2_audit_boundaries.py::test_blank_fields_rejected_without_write[ \t\r\n -invoice_date] PASSED [ 34%]
+tests/test_rc2_audit_boundaries.py::test_blank_fields_rejected_without_write[ \t\r\n -currency] PASSED [ 35%]
+tests/test_rc2_audit_boundaries.py::test_blank_fields_rejected_without_write[\xa0\u3000-invoice_number] PASSED [ 36%]
+tests/test_rc2_audit_boundaries.py::test_blank_fields_rejected_without_write[\xa0\u3000-vendor] PASSED [ 37%]
+tests/test_rc2_audit_boundaries.py::test_blank_fields_rejected_without_write[\xa0\u3000-invoice_date] PASSED [ 38%]
+tests/test_rc2_audit_boundaries.py::test_blank_fields_rejected_without_write[\xa0\u3000-currency] PASSED [ 39%]
+tests/test_rc2_audit_boundaries.py::test_blank_fields_rejected_without_write[None-invoice_number] PASSED [ 40%]
+tests/test_rc2_audit_boundaries.py::test_blank_fields_rejected_without_write[None-vendor] PASSED [ 41%]
+tests/test_rc2_audit_boundaries.py::test_blank_fields_rejected_without_write[None-invoice_date] PASSED [ 42%]
+tests/test_rc2_audit_boundaries.py::test_blank_fields_rejected_without_write[None-currency] PASSED [ 43%]
+tests/test_rc2_audit_boundaries.py::test_invalid_dates_rejected[2026-1-02] PASSED [ 45%]
+tests/test_rc2_audit_boundaries.py::test_invalid_dates_rejected[2026-01-2] PASSED [ 46%]
+tests/test_rc2_audit_boundaries.py::test_invalid_dates_rejected[2026-02-29] PASSED [ 47%]
+tests/test_rc2_audit_boundaries.py::test_invalid_dates_rejected[2026-02-30] PASSED [ 48%]
+tests/test_rc2_audit_boundaries.py::test_invalid_dates_rejected[0000-01-01] PASSED [ 49%]
+tests/test_rc2_audit_boundaries.py::test_invalid_dates_rejected[2026-10-29T00:00:00] PASSED [ 50%]
+tests/test_rc2_audit_boundaries.py::test_invalid_dates_rejected[2026-10-29x] PASSED [ 51%]
+tests/test_rc2_audit_boundaries.py::test_invalid_dates_rejected[\uff12\uff10\uff12\uff16-10-29] PASSED [ 52%]
+tests/test_rc2_audit_boundaries.py::test_valid_calendar_dates[2024-02-29] PASSED [ 53%]
+tests/test_rc2_audit_boundaries.py::test_valid_calendar_dates[2000-02-29] PASSED [ 54%]
+tests/test_rc2_audit_boundaries.py::test_valid_calendar_dates[2026-01-02] PASSED [ 56%]
+tests/test_rc2_audit_boundaries.py::test_length_limits_block_confirmation[vendor-201] PASSED [ 57%]
+tests/test_rc2_audit_boundaries.py::test_length_limits_block_confirmation[invoice_number-51] PASSED [ 58%]
+tests/test_rc2_audit_boundaries.py::test_blank_label_never_consumes_next_line[Invoice Number-invoice_number] PASSED [ 59%]
+tests/test_rc2_audit_boundaries.py::test_blank_label_never_consumes_next_line[Vendor-vendor] PASSED [ 60%]
+tests/test_rc2_audit_boundaries.py::test_blank_label_never_consumes_next_line[Invoice Date-invoice_date] PASSED [ 61%]
+tests/test_rc2_audit_boundaries.py::test_blank_label_never_consumes_next_line[Currency-currency] PASSED [ 62%]
+tests/test_rc2_audit_boundaries.py::test_blank_label_never_consumes_next_line[Total Amount-total_amount] PASSED [ 63%]
+tests/test_rc2_audit_boundaries.py::test_csv_cells_are_text_and_roundtrip[=] PASSED [ 64%]
+tests/test_rc2_audit_boundaries.py::test_csv_cells_are_text_and_roundtrip[+] PASSED [ 65%]
+tests/test_rc2_audit_boundaries.py::test_csv_cells_are_text_and_roundtrip[-] PASSED [ 67%]
+tests/test_rc2_audit_boundaries.py::test_csv_cells_are_text_and_roundtrip[@] PASSED [ 68%]
+tests/test_rc2_audit_boundaries.py::test_csv_cells_are_text_and_roundtrip[\t] PASSED [ 69%]
+tests/test_rc2_audit_boundaries.py::test_csv_cells_are_text_and_roundtrip[\r] PASSED [ 70%]
+tests/test_rc2_audit_boundaries.py::test_csv_cells_are_text_and_roundtrip[\n] PASSED [ 71%]
+tests/test_rc2_audit_boundaries.py::test_csv_cells_are_text_and_roundtrip[ \t=] PASSED [ 72%]
+tests/test_rc2_audit_boundaries.py::test_duplicate_warning_and_documented_double_export PASSED [ 73%]
+tests/test_rc2_audit_boundaries.py::test_pdf_page_limit[20-200] PASSED   [ 74%]
+tests/test_rc2_audit_boundaries.py::test_pdf_page_limit[21-400] PASSED   [ 75%]
+tests/test_rc2_audit_boundaries.py::test_exact_upload_size_boundary PASSED [ 76%]
+tests/test_rc2_audit_boundaries.py::test_sql_metacharacters_stored_as_data PASSED [ 78%]
+tests/test_rc2_audit_boundaries.py::test_huge_pdf_amount_does_not_poison_database PASSED [ 79%]
+tests/test_rc2_audit_boundaries.py::test_boolean_amount_is_not_money PASSED [ 80%]
+tests/test_rc2_audit_boundaries.py::test_malformed_grouping_not_silently_changed PASSED [ 81%]
+tests/test_rc2_audit_boundaries.py::test_invalid_nan_string_field_returns_client_error PASSED [ 82%]
+tests/test_rc_acceptance.py::test_field_order_changed_still_extracts PASSED [ 83%]
+tests/test_rc_acceptance.py::test_missing_vendor_flagged_and_blocks_confirmation PASSED [ 84%]
+tests/test_rc_acceptance.py::test_invalid_date_and_amount_format PASSED  [ 85%]
+tests/test_rc_acceptance.py::test_duplicate_invoice_number_flagged PASSED [ 86%]
+tests/test_rc_acceptance.py::test_illegal_empty_and_corrupt_pdf_rejected PASSED [ 87%]
+tests/test_rc_acceptance.py::test_encrypted_pdf_rejected_with_400_not_500 PASSED [ 89%]
+tests/test_rc_acceptance.py::test_export_without_review_excludes_document PASSED [ 90%]
+tests/test_rc_acceptance.py::test_api_cannot_confirm_invalid_amount PASSED [ 91%]
+tests/test_rc_acceptance.py::test_csv_formula_injection_neutralised PASSED [ 92%]
+tests/test_rc_acceptance.py::test_frontend_does_not_use_innerhtml_for_untrusted_data PASSED [ 93%]
+tests/test_rc_acceptance.py::test_oversized_upload_rejected PASSED       [ 94%]
+tests/test_validation.py::test_valid_invoice_has_no_warnings PASSED      [ 95%]
+tests/test_validation.py::test_missing_fields_reported PASSED            [ 96%]
+tests/test_validation.py::test_invalid_date_reported PASSED              [ 97%]
+tests/test_validation.py::test_zero_amount_reported PASSED               [ 98%]
+tests/test_validation.py::test_abnormal_amount_flagged_not_silently_accepted PASSED [100%]
+
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  .../site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 91 passed, 1 warning in 4.55s =========================

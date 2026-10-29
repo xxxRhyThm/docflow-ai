@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DocFlow AI — Invoice Extraction &amp; Review</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <h1>DocFlow AI</h1>
+  <p class="subtitle">Single-format invoice extraction, validation &amp; human review — rule-based v1, no paid LLM call by default.</p>
+</header>
+<main>
+  <section class="card">
+    <h2>1. Upload a PDF invoice</h2>
+    <p class="hint">Only .pdf files, max 10 MB, max 20 pages. Demo format only: Invoice Number / Vendor / Invoice Date / Currency / Total Amount.</p>
+    <form id="upload-form">
+      <input type="file" id="file-input" accept=".pdf" required>
+      <button type="submit">Upload &amp; extract</button>
+    </form>
+    <p id="upload-msg" class="msg"></p>
+  </section>
+
+  <section class="card">
+    <h2>2. Documents</h2>
+    <button id="refresh-btn" type="button">Refresh list</button>
+    <button id="export-json-btn" type="button">Export confirmed (JSON)</button>
+    <button id="export-csv-btn" type="button">Export confirmed (CSV)</button>
+    <p class="hint">Export includes confirmed documents only. Unconfirmed uploads are not exported.</p>
+    <table id="doc-table">
+      <thead><tr><th>ID</th><th>File</th><th>Invoice</th><th>Vendor</th><th>Date</th><th>Total</th><th>Status</th><th></th></tr></thead>
+      <tbody id="doc-rows"></tbody>
+    </table>
+  </section>
+
+  <section class="card" id="review-card" hidden>
+    <h2>3. Human review</h2>
+    <p id="review-warnings" class="warn"></p>
+    <form id="review-form">
+      <label>Invoice number <input id="f-number" type="text"></label>
+      <label>Vendor <input id="f-vendor" type="text"></label>
+      <label>Invoice date <input id="f-date" type="text" placeholder="YYYY-MM-DD"></label>
+      <label>Currency <input id="f-currency" type="text" placeholder="USD / EUR / GBP / CNY"></label>
+      <label>Total amount <input id="f-total" type="number" step="0.01"></label>
+      <button type="submit">Confirm &amp; save</button>
+    </form>
+    <p id="review-msg" class="msg"></p>
+  </section>
+</main>
+<footer><p>DocFlow AI 0.1-rc3 — demo data only, no real customer data. Extraction method: rule-based. LLM interface is designed but not wired up.</p><p>© 2026 Haoming Xu · Licensed under GNU AGPL-3.0 only · Source code: <a href="https://github.com/xxxRhyThm/docflow-ai">github.com/xxxRhyThm/docflow-ai</a> (LICENSE, NOTICE).</p></footer>
+<script src="/static/app.js"></script>
+</body>
+</html>
